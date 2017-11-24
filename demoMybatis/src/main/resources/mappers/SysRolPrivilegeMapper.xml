@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.SysRolPrivilegeMapper" >
+  <resultMap id="BaseResultMap" type="model.SysRolPrivilege" >
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="privilege_id" property="privilegeId" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="model.SysRolPrivilege" >
+    insert into sys_role_privilege (role_id, privilege_id)
+    values (#{roleId,jdbcType=INTEGER}, #{privilegeId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="model.SysRolPrivilege" >
+    insert into sys_role_privilege
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="privilegeId != null" >
+        privilege_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="privilegeId != null" >
+        #{privilegeId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>
