@@ -1,140 +1,205 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="dao.SysUserMapper" >
-  <resultMap id="BaseResultMap" type="model.SysUser" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="user_name" property="userName" jdbcType="VARCHAR" />
-    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
-    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
-    <result column="user_info" property="userInfo" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="model.SysUser" extends="BaseResultMap" >
-    <result column="head_img" property="headImg" jdbcType="LONGVARBINARY" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, user_name, user_password, user_email, user_info, create_time
-  </sql>
-  <sql id="Blob_Column_List" >
-    head_img
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from sys_user
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectAll" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from sys_user
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from sys_user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="model.SysUser" >
-    insert into sys_user (id, user_name, user_password, 
-      user_email, user_info, create_time, 
-      head_img)
-    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
-      #{userEmail,jdbcType=VARCHAR}, #{userInfo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{headImg,jdbcType=LONGVARBINARY})
-  </insert>
-  <insert id="insertSelective" parameterType="model.SysUser" >
-    insert into sys_user
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="userName != null" >
-        user_name,
-      </if>
-      <if test="userPassword != null" >
-        user_password,
-      </if>
-      <if test="userEmail != null" >
-        user_email,
-      </if>
-      <if test="userInfo != null" >
-        user_info,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="headImg != null" >
-        head_img,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userName != null" >
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="userPassword != null" >
-        #{userPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="userEmail != null" >
-        #{userEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="userInfo != null" >
-        #{userInfo,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="headImg != null" >
-        #{headImg,jdbcType=LONGVARBINARY},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="model.SysUser" >
-    update sys_user
-    <set >
-      <if test="userName != null" >
-        user_name = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="userPassword != null" >
-        user_password = #{userPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="userEmail != null" >
-        user_email = #{userEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="userInfo != null" >
-        user_info = #{userInfo,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="headImg != null" >
-        head_img = #{headImg,jdbcType=LONGVARBINARY},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="model.SysUser" >
-    update sys_user
-    set user_name = #{userName,jdbcType=VARCHAR},
-      user_password = #{userPassword,jdbcType=VARCHAR},
-      user_email = #{userEmail,jdbcType=VARCHAR},
-      user_info = #{userInfo,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      head_img = #{headImg,jdbcType=LONGVARBINARY}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="model.SysUser" >
-    update sys_user
-    set user_name = #{userName,jdbcType=VARCHAR},
-      user_password = #{userPassword,jdbcType=VARCHAR},
-      user_email = #{userEmail,jdbcType=VARCHAR},
-      user_info = #{userInfo,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+<mapper namespace="dao.SysUserMapper">
+	<resultMap id="BaseResultMap" type="model.SysUser">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="user_password" property="userPassword"
+			jdbcType="VARCHAR" />
+		<result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+		<result column="user_info" property="userInfo" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="model.SysUser"
+		extends="BaseResultMap">
+		<result column="head_img" property="headImg" jdbcType="LONGVARBINARY" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_name, user_password, user_email, user_info, create_time
+	</sql>
+	<sql id="Blob_Column_List">
+		head_img
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from sys_user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 此处当有多个参数时，可不写parameterType或parameterMap，可通过#{param1}、#{param2}来取接口中的参数，也可写成#{0}、#{1}
+	当接口中的参数加了@param注解时，也可写成注解中的值-->
+	<select id="selectByUserNameAndPassWord" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from sys_user
+		where user_name = #{userName,jdbcType=VARCHAR} and user_password = #{param2,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectAll" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from sys_user
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sys_user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<!-- useGeneratedKeys=true 返回自增长的主键，keyProperty=id 将主键存储在id属性中 这种回写主键的方法只适用于支持主键自增的数据库 -->
+	<insert id="insert" parameterType="model.SysUser"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into sys_user (id, user_name, user_password,
+		user_email, user_info, create_time,
+		head_img)
+		values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
+		#{userPassword,jdbcType=VARCHAR},
+		#{userEmail,jdbcType=VARCHAR}, #{userInfo,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE},
+		#{headImg,jdbcType=LONGVARBINARY})
+	</insert>
+
+	<!-- selectKey 标签 keyColumn keyProperty 和上面 useGeneratedKeys 的用法含 义相同 ，这resultType 
+		用于设置返回值类型,order属性的设置和使用的数据库有关 MySQL数据库中， order属性设置的值是 AFTER，因为当前记录的主键值在 insert 
+		语句 执行成功后才能获取 而在 Oracle数据库中， order的值要设置为 BEFORE ，这是因为 Oracl 中需要先从序列获取值，然后将值作为主键插入到数据库中 -->
+	<insert id="insert2" parameterType="model.SysUser">
+		insert into sys_user (id, user_name, user_password,
+		user_email, user_info, create_time,
+		head_img)
+		values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
+		#{userPassword,jdbcType=VARCHAR},
+		#{userEmail,jdbcType=VARCHAR}, #{userInfo,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE},
+		#{headImg,jdbcType=LONGVARBINARY})
+		<selectKey keyColumn="id" resultType="int" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	
+	<!-- oracle中的写法，获取主键在插入数据之前  这里selectKey写在前在后没影响，重点是order=BEFORE-->
+	<insert id="insert3" parameterType="model.SysUser">
+		<selectKey keyColumn="id" resultType="int" keyProperty="id"
+			order="BEFORE">
+			SELECT SEQ_ID.nextval from dual
+		</selectKey>
+		insert into sys_user (id, user_name, user_password,
+		user_email, user_info, create_time,
+		head_img)
+		values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
+		#{userPassword,jdbcType=VARCHAR},
+		#{userEmail,jdbcType=VARCHAR}, #{userInfo,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE},
+		#{headImg,jdbcType=LONGVARBINARY})
+	</insert>
+	
+	
+	<!-- map中的key即为 #{userName}等属性，值为需要赋的值-->
+	<insert id="insert4" parameterType="HashMap">
+		insert into sys_user (id, user_name, user_password,
+		user_email, user_info, create_time,
+		head_img)
+		values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
+		#{userPassword,jdbcType=VARCHAR},
+		#{userEmail,jdbcType=VARCHAR}, #{userInfo,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE},
+		#{headImg,jdbcType=LONGVARBINARY})
+	</insert>
+
+	<insert id="insertSelective" parameterType="model.SysUser">
+		insert into sys_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="userPassword != null">
+				user_password,
+			</if>
+			<if test="userEmail != null">
+				user_email,
+			</if>
+			<if test="userInfo != null">
+				user_info,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="headImg != null">
+				head_img,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPassword != null">
+				#{userPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="userEmail != null">
+				#{userEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="userInfo != null">
+				#{userInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="headImg != null">
+				#{headImg,jdbcType=LONGVARBINARY},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="model.SysUser">
+		update sys_user
+		<set>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPassword != null">
+				user_password = #{userPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="userEmail != null">
+				user_email = #{userEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="userInfo != null">
+				user_info = #{userInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="headImg != null">
+				head_img = #{headImg,jdbcType=LONGVARBINARY},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="model.SysUser">
+		update sys_user
+		set user_name = #{userName,jdbcType=VARCHAR},
+		user_password = #{userPassword,jdbcType=VARCHAR},
+		user_email = #{userEmail,jdbcType=VARCHAR},
+		user_info = #{userInfo,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		head_img = #{headImg,jdbcType=LONGVARBINARY}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="model.SysUser">
+		update sys_user
+		set user_name = #{userName,jdbcType=VARCHAR},
+		user_password = #{userPassword,jdbcType=VARCHAR},
+		user_email = #{userEmail,jdbcType=VARCHAR},
+		user_info = #{userInfo,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
 </mapper>

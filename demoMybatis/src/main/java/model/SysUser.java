@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 
 public class SysUser implements Serializable {
@@ -110,4 +111,13 @@ public class SysUser implements Serializable {
         result = prime * result + ((getHeadImg() == null) ? 0 : getHeadImg().hashCode());
         return result;
     }
+
+	@Override
+	public String toString() {
+		return "SysUser [id=" + id + ", userName=" + userName + ", userPassword=" + userPassword + ", userEmail="
+				+ userEmail + ", userInfo=" + userInfo + ", createTime=" + createTime + ", headImg="
+				+ Arrays.toString(headImg) + "]";
+	}
+    
+    
 }
